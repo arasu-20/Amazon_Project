@@ -44,3 +44,14 @@ export function removeFromCart(productId){
     cart = newCart;
     toLocalStorage();
 }
+
+export function updateDeliveryOption(productId, deliveryOptionId){
+    let sameProduct;
+        cart.forEach((cartItem)=>{
+            if(productId === cartItem.productId){
+                sameProduct = cartItem;
+            }
+        });
+        sameProduct.deliveryOptionId = deliveryOptionId;
+        toLocalStorage();
+}
