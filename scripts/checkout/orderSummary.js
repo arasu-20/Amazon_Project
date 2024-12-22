@@ -31,7 +31,9 @@ export function renderAgain() {
         const dateString = deliveryDate.format("dddd, MMMM D");
 
         cartHTML += `
-<div class="cart-item-container js-cart-item-${sameProduct.id}">
+<div class="cart-item-container
+js-cart-container
+js-cart-item-${sameProduct.id}">
     <div class="delivery-date">
         Delivery date: ${dateString}
     </div>
@@ -47,7 +49,7 @@ export function renderAgain() {
         <div class="product-price">
             $${formatCurrency(sameProduct.priceCents)}
         </div>
-        <div class="product-quantity">
+        <div class="product-quantity js-product-quantity-${sameProduct.id}">
             <span>
             Quantity: <span class="quantity-label js-quantity-label-${sameProduct.id
             }">${cartItem.quantity}</span>
@@ -59,7 +61,7 @@ export function renderAgain() {
             <input class="quantity-input js-quantity-input-${sameProduct.id}">
             <span class="save-quantity-link link-primary js-save-link" data-product-id="${sameProduct.id
             }">Save</span>
-            <span class="delete-quantity-link js-delete-link link-primary" data-product-id="${sameProduct.id
+            <span class="delete-quantity-link js-delete-link-${sameProduct.id} js-delete-link link-primary" data-product-id="${sameProduct.id
             }">
             Delete
             </span>
@@ -109,7 +111,7 @@ export function renderAgain() {
         return html;
     }
 
-    document.querySelector(".js-cart-summary").innerHTML = cartHTML;
+    document.querySelector(".js-order-summary").innerHTML = cartHTML;
 
     document.querySelectorAll(".js-delete-link").forEach((link) => {
         link.addEventListener("click", () => {
@@ -162,7 +164,15 @@ export function renderAgain() {
             renderPayment();
         });
     });
-    document.querySelector(
+    const checkoutCart = document.querySelector(
         ".js-checkout-cart"
-    ).innerHTML = `${updateCartQuantity()} items`;
+    );
+    if (!checkoutCart) {
+        console.error('Element .js-checkout-cart not found');
+        return;
+    }
+    checkoutCart.innerHTML = `${updateCartQuantity()} items`;
+    document.addEventListener('DOMContentLoaded', () => {
+        renderAgain();
+    });
 }
