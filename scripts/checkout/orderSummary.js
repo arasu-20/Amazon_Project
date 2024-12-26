@@ -58,7 +58,7 @@ js-cart-item-${sameProduct.id}">
             }">
             Update
             </span>
-            <input class="quantity-input js-quantity-input-${sameProduct.id}">
+            <input value = "${cartItem.quantity}" type="number" class="quantity-input js-quantity-input-${sameProduct.id}">
             <span class="save-quantity-link link-primary js-save-link" data-product-id="${sameProduct.id
             }">Save</span>
             <span class="delete-quantity-link js-delete-link-${sameProduct.id} js-delete-link link-primary" data-product-id="${sameProduct.id
