@@ -1,4 +1,6 @@
 import formatCurrency from "../scripts/utils/money.js";
+
+//to add same product if that is already in cart
 export function productsInCart(productId){
   let sameProduct;
 
@@ -10,6 +12,8 @@ export function productsInCart(productId){
     return sameProduct;
 }
 
+
+//super class
 export class Product{
   id;
   image;
@@ -38,6 +42,8 @@ export class Product{
   }
 }
 
+
+//to differentiate the type of products using inheritance
 class Clothing extends Product{
   sizeChartLink;
   constructor(productDetails){
@@ -50,9 +56,12 @@ class Clothing extends Product{
     <a href="${this.sizeChartLink}" target="_blank">Size chart</a>`;
   }
 }
+
+// By using fetch method load the products
 export let products = [];
 export function loadProductFetch(){
   const promise = fetch('https://supersimplebackend.dev/products').then((response)=>{
+    console.log('load products');
     return response.json();
   }).then((productData)=>{
     products = productData.map((productDetails)=>{
@@ -61,10 +70,13 @@ export function loadProductFetch(){
       }
       return new Product(productDetails);
     });
+  }).catch((error)=>{
+    console.log('Unexpected error. Please check the URL and try again later.');
   })
   return promise;
 }
 
+//Created using XHR Method to Load the Products
 export function loadProducts(mainFunction){
   const xhr = new XMLHttpRequest();
   xhr.addEventListener('load',()=>{
@@ -75,6 +87,9 @@ export function loadProducts(mainFunction){
       return new Product(productDetails);
     });
     mainFunction();
+  })
+  xhr.addEventListener('error',()=>{
+    console.log('Unexpected error. Please check the URL and try again later.')
   })
   xhr.open('GET','https://supersimplebackend.dev/products');
   xhr.send();

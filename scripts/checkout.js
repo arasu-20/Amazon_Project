@@ -4,8 +4,24 @@ import { loadProductFetch } from "../data/products.js";
 import { loadCart } from "../data/cart.js";
 // import '../data/cart-class.js';
 
+async function loadPage() { //using async await
+    try{
+        await loadProductFetch();
+        await new Promise((resolve)=>{
+            loadCart(()=>{
+                resolve();
+            });
+        });
+    }
+    catch(error){
+        console.log(error);
+    }
+    renderAgain();
+    renderPayment();
+}
+loadPage();
 
-new Promise((resolve)=>{
+new Promise((resolve)=>{ //using promises
     loadProductFetch(()=>{
         resolve();
     })
@@ -14,18 +30,10 @@ new Promise((resolve)=>{
     renderPayment();
 });
 
-// new Promise((resolve)=>{
-//     loadProducts(()=>{
-//         resolve(); 
-//     })
-// }).then(()=>{
-//     renderAgain();
-//     renderPayment();
-// })
 
-// loadProducts(()=>{
-//     loadCart(()=>{
-//         renderAgain();
-//         renderPayment();
-//     })
-// })
+loadProducts(()=>{  //callback method
+    loadCart(()=>{
+        renderAgain();
+        renderPayment();
+    })
+})
