@@ -70,3 +70,13 @@ export function updateCartQuantity() {
     })
     return cartQuantity;
 }
+
+export function loadCart(mainFunction){
+const xhr = new XMLHttpRequest();
+xhr.addEventListener('load',()=>{
+    console.log(xhr.response)
+    mainFunction();
+})
+xhr.open('GET','https://supersimplebackend.dev/cart');
+xhr.send();
+}
