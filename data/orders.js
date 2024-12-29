@@ -6,7 +6,7 @@ export const orders = JSON.parse(localStorage.getItem('orders')) || [
         products: [
             {
                 productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-                quantity: 1, // Quantity of the product
+                quantity: 2, // Quantity of the product
                 estimatedDeliveryTime: "2025-01-05T00:00:00Z" // Delivery time for this order
             }
         ]
