@@ -3,7 +3,7 @@ import { orders } from "../data/orders.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import formatCurrency from "./utils/money.js";
 
-async function loadPage(){
+async function loadOrderPage(){
     await loadProductFetch();
 
     let orderHTML = '';
@@ -86,4 +86,4 @@ async function loadPage(){
     document.querySelector('.js-orders-grid').innerHTML = orderHTML;
 }
 
-loadPage();
+loadOrderPage();
